@@ -1,1 +1,10 @@
-<h2>Inner Component: ServerComponent</h2>
+<div class="container">
+    <button 
+        class="btn btn-primary" 
+        [disabled]="!allowToActivateServer"
+        (click)="activateServer()"
+    >Activate Servers</button>
+
+    <h2>Server id: {{ serverId }}</h2>
+    <h2>Server status: {{ serverStatus }}</h2> 
+</div>
