@@ -1,10 +1,18 @@
 <div class="container">
+
+    <label>Input server name</label>
+    <input type="text" class="form-control" [(ngModel)]="serverName"/>
+    <tr>
+    <p *ngIf="serverCreated; else noServer">Server was Created - Server Name: {{ serverName }}</p>
+    <ng-template #noServer>
+        <p>No server was created!</p>
+    </ng-template>
+
     <button 
         class="btn btn-primary" 
         [disabled]="!allowToActivateServer"
         (click)="activateServer()"
     >Activate Servers</button>
-
-    <h2>Server id: {{ serverId }}</h2>
-    <h2>Server status: {{ serverStatus }}</h2> 
+    <tr>
+    <h2 [ngStyle]="{'background-color': getColor()}">Server id: {{ serverId }} is {{ serverStatus }}</h2>
 </div>
