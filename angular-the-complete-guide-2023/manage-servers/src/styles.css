@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+.button-spacing {
+    margin-right: 10px;
+}
+
+.button-spacing:last-child {
+    margin-right: 0;
+}
