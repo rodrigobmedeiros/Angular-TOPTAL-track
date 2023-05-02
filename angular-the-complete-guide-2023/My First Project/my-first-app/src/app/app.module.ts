@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 import { WarningAlertComponent } from './alerts/warning-alert.component';
 import { SuccessAlertComponent } from './alerts/success-alert.component';
 import { FormsModule } from '@angular/forms';
-import { SecondExerciseComponent } from './second-exercise/second-exercise.component'
+import { SecondExerciseComponent } from './second-exercise/second-exercise.component';
+import { ThirdExerciseComponent } from './third-exercise/third-exercise.component'
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { SecondExerciseComponent } from './second-exercise/second-exercise.compo
     ServerComponent,
     WarningAlertComponent,
     SuccessAlertComponent,
-    SecondExerciseComponent
+    SecondExerciseComponent,
+    ThirdExerciseComponent
   ],
   imports: [
     BrowserModule,

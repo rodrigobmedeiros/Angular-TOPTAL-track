@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'server-component',
-    templateUrl: './server.component.html'
+    templateUrl: './server.component.html',
+    styles: [`
+        .online {
+            color: white
+        }
+    `]
 })
 export class ServerComponent {
     serverId: number = 10;
@@ -11,6 +16,19 @@ export class ServerComponent {
     serverName: string = '';
     serverCreated: boolean = false;
 
+    servers = [
+        {
+            id: 1,
+            status: 'online',
+            name: 'Teste'
+        },
+        {
+            id: 2,
+            status: 'online',
+            name: 'Teste 2'
+        },
+    ]
+
     constructor() {
         setTimeout(() => {
             this.allowToActivateServer = true;
@@ -18,15 +36,23 @@ export class ServerComponent {
     }
 
     activateServer() {
-        this.serverCreated = true;
-        this.serverStatus = "online";
+        // this.serverCreated = true;
+        // this.serverStatus = "online";
+        this.servers.push(
+            {
+                name: this.serverName,
+                id: this.servers[this.servers.length - 1].id + 1,
+                status: 'offline'
+            }
+        )
+
     }
 
     onUpdateServerName(event: Event) {
         this.serverName = (<HTMLInputElement>event.target).value;
     }
 
-    getColor() {
-        return this.serverStatus === 'online' ? 'green' : 'red';
+    getColor(server: any) {
+        return server.status === 'online' ? 'green' : 'red';
     }
 }

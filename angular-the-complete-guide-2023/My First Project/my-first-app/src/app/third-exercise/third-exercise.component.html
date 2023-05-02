@@ -1,0 +1,11 @@
+<div class="container">
+    <button class="btn btn-primary" (click)="onclick()">Display Details</button>
+    <p *ngIf="showParagraph">Hey I'm a paragraph!</p>
+
+    <tr>
+    <p 
+        *ngFor="let log of logs; let i = index"
+        [ngStyle]="{'background-color': getColor(i)}"
+        [ngClass]="{ greaterThanFour: getColor(i)}"
+    >{{ log }}</p>
+</div>

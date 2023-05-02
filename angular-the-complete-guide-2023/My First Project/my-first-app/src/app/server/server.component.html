@@ -14,5 +14,8 @@
         (click)="activateServer()"
     >Activate Servers</button>
     <tr>
-    <h2 [ngStyle]="{'background-color': getColor()}">Server id: {{ serverId }} is {{ serverStatus }}</h2>
+    <h2 *ngFor="let server of servers;"
+        [ngStyle]="{'background-color': getColor(server)}"
+        [ngClass]="{ online: server.status === 'online'}"
+    >Server: {{ server.name }} - Server id: {{ server.id }} is {{ server.status }}</h2>
 </div>
