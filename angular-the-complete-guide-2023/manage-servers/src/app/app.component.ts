@@ -15,5 +15,9 @@ export class AppComponent {
     }
   ];
 
+  addServer(server: any) {
+    this.servers.push(server);
+  }
+
   
 }
