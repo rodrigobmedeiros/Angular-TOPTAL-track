@@ -1,9 +1,6 @@
 <div class="panel panel-default" *ngIf="element">
     <div class="panel-heading">{{ element.name }}</div>
     <div class="panel-body">
-        <p>
-            <strong *ngIf="element.type === 'default'" style="color: red">{{ element.content }}</strong>
-            <em *ngIf="element.type === 'blueprint'" style="color: blue">{{ element.content }}</em>
-        </p>
+        <ng-content></ng-content>
     </div>
 </div>
