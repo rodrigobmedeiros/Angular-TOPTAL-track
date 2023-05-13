@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+  @ViewChild('paragraph') paragraph!: ElementRef;
   servers: any[] = [
     {
       name: 'server 01',
@@ -17,6 +17,7 @@ export class AppComponent {
 
   addServer(server: any) {
     this.servers.push(server);
+    alert('parent:' + this.paragraph.nativeElement.textContent);
   }
 
   
