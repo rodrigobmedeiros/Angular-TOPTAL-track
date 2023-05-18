@@ -9,9 +9,11 @@ export class GameControlComponent {
   timer: any;
   currentNumber: number = 0;
   erasePreviousNumbers: boolean = false;
+  notShowClearButton: boolean = true;
 
   startTimer() {
     this.erasePreviousNumbers = false;
+    this.notShowClearButton = false;
     this.timer = setInterval(() => {
       this.currentNumber++;
     }, 1000);
@@ -25,5 +27,6 @@ export class GameControlComponent {
     this.stopTimer();
     this.currentNumber = 0;
     this.erasePreviousNumbers = true;
+    this.notShowClearButton = true;
   }
 }

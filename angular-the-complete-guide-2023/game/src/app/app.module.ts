@@ -7,6 +7,7 @@ import { EvenComponent } from './game-control/even/even.component';
 import { OddComponent } from './game-control/odd/odd.component';
 import { BasicTextColor } from './directives/basic-text-color.directive';
 import { BlueTextColorDirective } from './directives/blue-text-color.directive';
+import { UnlessDirective } from './directives/unless.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BlueTextColorDirective } from './directives/blue-text-color.directive';
     EvenComponent,
     OddComponent,
     BasicTextColor,
-    BlueTextColorDirective
+    BlueTextColorDirective,
+    UnlessDirective
   ],
   imports: [
     BrowserModule
