@@ -3,6 +3,7 @@ import {
   ElementRef, 
   HostBinding, 
   HostListener, 
+  Input, 
   OnInit, 
   Renderer2 
 } from '@angular/core';
@@ -11,7 +12,9 @@ import {
   selector: '[appBlueTextColor]'
 })
 export class BlueTextColorDirective implements OnInit {
-  @HostBinding('style.backgroundColor') backgroundColor: string = "transparent";
+  @Input() defaultColor: string = 'transparent'
+  @Input() mouseOverColor: string = 'red';
+  @HostBinding('style.backgroundColor') backgroundColor: string = this.defaultColor;
   
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
@@ -19,14 +22,14 @@ export class BlueTextColorDirective implements OnInit {
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    this.renderer.setStyle(this.elementRef.nativeElement, 'color', 'blue');
-    this.backgroundColor = "red";
+    // this.renderer.setStyle(this.elementRef.nativeElement, 'color', 'blue');
+    this.backgroundColor = this.mouseOverColor;
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.renderer.setStyle(this.elementRef.nativeElement, 'color', 'black');
-    this.backgroundColor = "transparent";
+    // this.renderer.setStyle(this.elementRef.nativeElement, 'color', 'black');
+    this.backgroundColor = this.defaultColor;
   }
 
 }
