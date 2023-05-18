@@ -36,7 +36,7 @@ export class ServerComponent {
     }
 
     activateServer() {
-        // this.serverCreated = true;
+        this.serverCreated = true;
         // this.serverStatus = "online";
         this.servers.push(
             {

@@ -3,7 +3,10 @@
     <label>Input server name</label>
     <input type="text" class="form-control" [(ngModel)]="serverName"/>
     <tr>
-    <p *ngIf="serverCreated; else noServer">Server was Created - Server Name: {{ serverName }}</p>
+    <ng-template [ngIf]="serverCreated">
+        <p>Server was Created - Server Name: {{ serverName }}</p>
+    </ng-template>
+    
     <ng-template #noServer>
         <p>No server was created!</p>
     </ng-template>
