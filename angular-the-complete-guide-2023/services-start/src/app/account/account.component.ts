@@ -13,13 +13,9 @@ export class AccountComponent {
   @Input() id: number;
   @Output() statusChanged = new EventEmitter<{id: number, newStatus: string}>();
 
-  constructor(
-    private loggingService: LoggingService,
-    private accountService: AccountService
-  ) {}
+  constructor(private accountService: AccountService) {}
 
   onSetTo(status: string) {
     this.accountService.ChangeAccountStatus({id: this.id, newStatus: status});
-    this.loggingService.logStatusChange(status);
   }
 }
