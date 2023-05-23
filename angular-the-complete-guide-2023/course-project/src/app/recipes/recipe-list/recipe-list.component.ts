@@ -15,7 +15,7 @@ export class RecipeListComponent {
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit(): void {
-    this.recipes = this.recipeService.recipes;
+    this.recipes = this.recipeService.getRecipes();
   }
 
   onSelect(recipe: Recipe) {

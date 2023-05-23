@@ -5,7 +5,7 @@ import { Recipe } from "../recipes/recipe.model";
     providedIn: 'root'
 })
 export class RecipeService {
-  recipes: Recipe[] = [
+  private recipes: Recipe[] = [
     new Recipe(
       'pasta bolognesa', 
       'delicious pasta with bolognesa souce', 
@@ -17,4 +17,8 @@ export class RecipeService {
       'https://static.itdg.com.br/images/1200-675/21fd76be3b29c3290859eda5220e0e32/323683-original.jpg'
     )
   ];
+
+  public getRecipes(): Recipe[] {
+    return this.recipes.slice();
+  }
 }
