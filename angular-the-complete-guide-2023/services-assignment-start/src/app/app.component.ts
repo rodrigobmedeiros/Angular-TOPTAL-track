@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CounterService } from './services/counter.service';
 import { UserServiceService } from './services/user-service.service';
 
 @Component({
@@ -10,10 +11,18 @@ export class AppComponent {
   activeUsers: any[];
   inactiveUsers: any[];
 
-  constructor(private userService: UserServiceService) {}
+  constructor(private userService: UserServiceService, private counterService: CounterService) {}
 
   ngOnInit() {
     this.activeUsers = this.userService.activeUsers;
     this.inactiveUsers = this.userService.inactiveUsers;
+  }
+
+  getNumberOfActivations() {
+    return this.counterService.inactiveToActiveCounter;
+  }
+
+  getNumberOfDeactivations() {
+    return this.counterService.activeToInactiveCounter;
   }
 }
