@@ -18,8 +18,6 @@ export class ShoppingListEditComponent {
     const amount = this.amountField.nativeElement.value;
     const ingredient = new Ingredient(name, +amount);
     this.shoppingListService.addIngredient(ingredient);
-
-    alert('Add Button was Clicked!')
   }
 
   public onDelete() {
