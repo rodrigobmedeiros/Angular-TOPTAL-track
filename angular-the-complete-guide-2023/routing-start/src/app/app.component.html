@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="#">Servers</a></li>
-        <li role="presentation"><a href="#">Users</a></li>
+        <li role="presentation" [ngClass]="{active: menuName === 'Home'}"><a routerLink="/" (click)="setActive('Home')">Home</a></li>
+        <li role="presentation" [ngClass]="{active: menuName === 'Servers'}"><a routerLink="users/" (click)="setActive('Servers')">Servers</a></li>
+        <li role="presentation" [ngClass]="{active: menuName === 'Users'}"><a routerLink="servers/" (click)="setActive('Users')">Users</a></li>
       </ul>
     </div>
   </div>

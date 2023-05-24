@@ -6,4 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  menuName: string = 'Home'
+
+  public setActive(menuName: string) {
+    this.menuName = menuName;
+  }
 }
