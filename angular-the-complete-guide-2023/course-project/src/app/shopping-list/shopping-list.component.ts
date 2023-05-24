@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
+import { ShoppingListService } from '../services/shopping-list.service';
 import { Ingredient } from '../shared/ingredient.model';
 
 @Component({
@@ -12,7 +13,9 @@ export class ShoppingListComponent {
     new Ingredient('banana', 10)
   ];
 
-  public onIngredientAdded(ingredient: Ingredient): void {
-    this.ingredients.push(ingredient);
+  constructor(private shoppingListService: ShoppingListService) {}
+
+  ngOnInit() {
+    this.ingredients = this.shoppingListService.getIngredients();
   }
 }
