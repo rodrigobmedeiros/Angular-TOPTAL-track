@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -20,4 +21,10 @@ export class UsersComponent {
       name: 'Chris'
     }
   ];
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  public onClickRedirectToUserDetails(user) {
+    this.router.navigate([user.id, user.name], {relativeTo: this.route}); 
+  }
 }
