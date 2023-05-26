@@ -1,2 +1,14 @@
 <p>User with {{ user.id }} loaded.</p>
 <p>User name is {{ user.name }}</p>
+<hr>
+<a 
+  [routerLink]="['/users', 10, 'rodrigo']"
+  [queryParams]="{id: 1}"
+  [fragment]="'vemPraCa'"
+  >Go To Rodrigo</a>
+<br>
+<a (click)="onClick()">Navigate Programatically</a>
+
+<hr>
+<h1 id="vemPraCa">Vem Pra Ca</h1>
+
