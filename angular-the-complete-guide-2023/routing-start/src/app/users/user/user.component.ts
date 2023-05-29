@@ -8,6 +8,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   user: {id: number, name: string};
+  idQueryParams: number;
+  fragment: string;
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
@@ -16,10 +18,22 @@ export class UserComponent implements OnInit {
       id: this.route.snapshot.params['id'],
       name: this.route.snapshot.params['name']
     }
+
+    this.idQueryParams = this.route.snapshot.queryParams['id'];
+    this.fragment = this.route.snapshot.fragment;
+
+    this.route.queryParams.subscribe((queryParams) => {
+      this.idQueryParams = queryParams['id'];
+    });
+
+    this.route.fragment.subscribe((fragment) => {
+      this.fragment = fragment;
+    });
+
     this.route.params.subscribe((params: Params) => {
       this.user.id = params.id;
       this.user.name = params.name;
-    })
+    });
   }
 
   onClick() {
