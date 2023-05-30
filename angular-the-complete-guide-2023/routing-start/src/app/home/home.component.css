@@ -1,0 +1,7 @@
+.button-spacing {
+    margin-right: 10px;
+}
+
+.button-spacing:last-child {
+    margin-right: 0;
+}
