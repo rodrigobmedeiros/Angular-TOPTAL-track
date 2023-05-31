@@ -11,6 +11,7 @@ import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRputingModule } from './app-routing.module';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AppRputingModule } from './app-routing.module';
     UserComponent,
     EditServerComponent,
     ServerComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ErrorMessageComponent
   ],
   imports: [
     BrowserModule,

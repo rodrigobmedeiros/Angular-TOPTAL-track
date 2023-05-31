@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { ErrorMessageComponent } from "./error-message/error-message.component";
 import { HomeComponent } from "./home/home.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { CanDeactivateGuardService } from "./servers/edit-server/can-deactivate-guard.service";
@@ -19,8 +20,10 @@ const appRoutes: Routes = [
       { path: ':id', component: ServerComponent },
       { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuardService] }
     ]},
-    { path: 'not-found', component: NotFoundComponent},
-    { path: '**', redirectTo: '/not-found'}
+    { path: 'not-found', component: NotFoundComponent },
+    { path: 'error-message', component: ErrorMessageComponent, data: {errorMessage: 'PAGE NOT FOUND - STATIC DATA WAY'}},
+    // { path: '**', redirectTo: '/not-found'}
+    { path: '**', redirectTo: '/error-message'}
   ]
 
 @NgModule({
