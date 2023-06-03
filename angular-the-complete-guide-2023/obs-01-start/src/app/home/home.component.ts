@@ -19,12 +19,19 @@ export class HomeComponent implements OnInit {
     let count = 0;
     const customIntervalObserver = Observable.create((observer: Observer<number>) => {
       setInterval(() => {
+
+        if (count > 4) {
+          observer.error(new Error('Count is greater than 4!'));
+        }
+
         observer.next(count);
         count++
       }, 1000);
     })
-    this.subscribe = customIntervalObserver.subscribe((data) => {
+    this.subscribe = customIntervalObserver.subscribe((data: number) => {
       console.log(data);
+    }, (error: Error) => {
+      alert(error.message);
     })
   }
 
