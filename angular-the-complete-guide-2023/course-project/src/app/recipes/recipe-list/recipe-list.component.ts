@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from '../recipe.model'
 
@@ -11,9 +12,13 @@ export class RecipeListComponent {
   
   recipes: Recipe[];
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService, private router: Router) {}
 
   ngOnInit(): void {
     this.recipes = this.recipeService.getRecipes();
+  }
+
+  public onClickNavigate() {
+    this.router.navigate(['/recipes', 'new']);
   }
 }
