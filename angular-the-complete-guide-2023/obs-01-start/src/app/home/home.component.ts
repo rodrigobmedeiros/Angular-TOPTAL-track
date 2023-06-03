@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { interval, Observable, Observer, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,10 @@ export class HomeComponent implements OnInit {
     const customIntervalObserver = Observable.create((observer: Observer<number>) => {
       setInterval(() => {
 
+        if (count === 4) {
+          observer.complete();
+        }
+
         if (count > 4) {
           observer.error(new Error('Count is greater than 4!'));
         }
@@ -28,10 +33,14 @@ export class HomeComponent implements OnInit {
         count++
       }, 1000);
     })
-    this.subscribe = customIntervalObserver.subscribe((data: number) => {
+    this.subscribe = customIntervalObserver.pipe(map((data: number) => {
+      return data * 10;
+    })).subscribe((data: number) => {
       console.log(data);
     }, (error: Error) => {
       alert(error.message);
+    }, () => {
+      alert('Observable completed!');
     })
   }
 
