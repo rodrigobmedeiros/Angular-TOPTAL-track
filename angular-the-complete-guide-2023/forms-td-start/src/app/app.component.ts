@@ -19,5 +19,6 @@ export class AppComponent {
 
   public onSubmit() {
     alert(JSON.stringify(this.form.value))
+    alert(this.form.valid);
   }
 }
