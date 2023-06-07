@@ -8,8 +8,9 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
   @ViewChild('form') form: NgForm;
-  defaultUsername: string = 'rodrigobmedeiros';
+  defaultUsername: string = 'rodrigo bernardo medeiros';
   defaultEmail: string = 'rodrimedeiros@gmail.com';
+  genders: string[] = ['male', 'female'];
   questionAnswer: string = '';
   
   suggestUserName() {
@@ -24,5 +25,6 @@ export class AppComponent {
   public onSubmit() {
     alert(JSON.stringify(this.form.value))
     alert(this.form.valid);
+    console.log(this.form);
   }
 }
