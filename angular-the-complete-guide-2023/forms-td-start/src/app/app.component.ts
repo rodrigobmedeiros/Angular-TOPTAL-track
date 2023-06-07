@@ -15,6 +15,23 @@ export class AppComponent {
   
   suggestUserName() {
     const suggestedName = 'Superuser';
+    // Essa seria uma forma de setar valores para o meu formulario, porem sempre tendo que atualizar todos os valores no 
+    // caso do setValue
+    // this.form.setValue({
+    //   ...this.form.value,
+    //   userData: {
+    //     username: suggestedName,
+    //     email: this.form.value.userData.email
+    //   }
+    // })
+    
+    // Agora no caso do patchValue consigo atualizar soh um valor especifico o resto continua do jeito que esta
+    this.form.form.patchValue({
+      userData: {
+        username: suggestedName
+      }
+    })
+
   }
 
   // public onSubmit(form: NgForm) {
