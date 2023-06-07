@@ -8,6 +8,10 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
   @ViewChild('form') form: NgForm;
+  defaultUsername: string = 'rodrigobmedeiros';
+  defaultEmail: string = 'rodrimedeiros@gmail.com';
+  questionAnswer: string = '';
+  
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
