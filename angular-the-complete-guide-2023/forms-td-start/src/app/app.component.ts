@@ -12,6 +12,14 @@ export class AppComponent {
   defaultEmail: string = 'rodrimedeiros@gmail.com';
   genders: string[] = ['male', 'female'];
   questionAnswer: string = '';
+  submitted: boolean = false;
+  user = {
+    username: '',
+    email: '',
+    question: '',
+    answer: '',
+    gender: ''
+  }
   
   suggestUserName() {
     const suggestedName = 'Superuser';
@@ -40,8 +48,11 @@ export class AppComponent {
   // }
 
   public onSubmit() {
-    alert(JSON.stringify(this.form.value))
-    alert(this.form.valid);
-    console.log(this.form);
+    this.submitted = true;
+    this.user.username = this.form.value.userData.username;
+    this.user.email = this.form.value.userData.email;
+    this.user.question = this.form.value.secret;
+    this.user.answer = this.form.value.questionAnswer;
+    this.user.gender = this.form.value.gender;
   }
 }
