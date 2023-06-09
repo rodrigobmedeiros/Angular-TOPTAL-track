@@ -18,13 +18,15 @@ export class AppComponent {
   submitted: boolean = false;
   userData = {
     email: '',
-    subscription: ''
+    subscription: '',
+    password: ''
   }
 
   onSubmit() {
     this.submitted = true;
     this.userData.email = this.form!.value.email;
     this.userData.subscription = this.form!.value.subscription;
+    this.userData.password = this.form!.value.password;
     this.form!.reset();
   }
 }
