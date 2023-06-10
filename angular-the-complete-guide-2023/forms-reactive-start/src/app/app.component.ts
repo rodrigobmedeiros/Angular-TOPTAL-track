@@ -15,6 +15,10 @@ export class AppComponent implements OnInit {
       'username': new FormControl(null),
       'email': new FormControl(null),
       'gender': new FormControl('male')
-    })
+    });
+  }
+
+  onSubmit() {
+    alert(JSON.stringify(this.userForm.value));
   }
 }
