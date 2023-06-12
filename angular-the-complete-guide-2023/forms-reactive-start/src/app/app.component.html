@@ -15,7 +15,8 @@
             class="help-text" 
             *ngIf="!userForm.get('userData.username').valid && userForm.get('userData.username').touched"
             >
-            Please, enter a correct username!
+            <span *ngIf="userForm.get('userData.username').errors['forbiddenName']">The username inserted is not accepted!</span>
+            <span *ngIf="userForm.get('userData.username').errors['required']">Please, enter a correct username!</span>
           </span>
           <div class="form-group">
             <label for="email">email</label>
@@ -56,6 +57,7 @@
           >
           Please, verify the values passed!
         </span>
+        <br>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
