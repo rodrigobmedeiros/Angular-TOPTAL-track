@@ -32,4 +32,9 @@ export class ShoppingListService {
   public getIngredient(index: number): Ingredient {
     return this.ingredients[index];
   }
+
+  public updateIngredient(index: number, newIngredient: Ingredient): void {
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChange.next(this.getIngredients());
+  }
 }
