@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ShoppingListService } from 'src/app/services/shopping-list.service';
 import { Ingredient } from 'src/app/shared/ingredient.model';
@@ -8,9 +8,25 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
   templateUrl: './shopping-list-edit.component.html',
   styleUrls: ['./shopping-list-edit.component.css']
 })
-export class ShoppingListEditComponent {
+export class ShoppingListEditComponent implements OnInit {
+  @ViewChild('form', {static: false}) form: NgForm;
+  ingredientToEditId: number;
+  editMode: boolean = false;
+  ingredientToEdit:  Ingredient;
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  ngOnInit() {
+    this.shoppingListService.ingredientToEdit.subscribe((index: number) => {
+      this.editMode = true;
+      this.ingredientToEditId = index;
+      this.ingredientToEdit = this.shoppingListService.getIngredient(this.ingredientToEditId);
+      this.form.setValue({
+        name: this.ingredientToEdit.name,
+        amount: this.ingredientToEdit.amount
+      })
+    })
+  }
   
   public onAdd(form: NgForm) {
     const formValue = form.value;

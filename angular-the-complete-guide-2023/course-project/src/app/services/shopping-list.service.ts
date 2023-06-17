@@ -8,6 +8,7 @@ import { Ingredient } from "../shared/ingredient.model";
 export class ShoppingListService {
 
   ingredientsChange =  new Subject<Ingredient[]>()
+  ingredientToEdit = new Subject<number>()
 
   private ingredients: Ingredient[] = [
     new Ingredient('apple', 5),
@@ -26,5 +27,9 @@ export class ShoppingListService {
 
   public getIngredients(): Ingredient[] {
     return this.ingredients.slice();
+  }
+
+  public getIngredient(index: number): Ingredient {
+    return this.ingredients[index];
   }
 }
