@@ -28,15 +28,17 @@ export class ShoppingListEditComponent implements OnInit {
     })
   }
   
-  public onAdd(form: NgForm): void {
+  public onSubmit(form: NgForm): void {
     const formValue = form.value;
     const ingredient = new Ingredient(formValue.name, formValue.amount);
     if (this.editMode) {
       this.shoppingListService.updateIngredient(this.ingredientToEditId, ingredient);
+      this.editMode = false;
     } 
     else {
       this.shoppingListService.addIngredient(ingredient);
     }
+    this.form.reset();
   }
 
   public onDelete() {
