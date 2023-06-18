@@ -33,19 +33,22 @@ export class ShoppingListEditComponent implements OnInit {
     const ingredient = new Ingredient(formValue.name, formValue.amount);
     if (this.editMode) {
       this.shoppingListService.updateIngredient(this.ingredientToEditId, ingredient);
-      this.editMode = false;
+
     } 
     else {
       this.shoppingListService.addIngredient(ingredient);
     }
-    this.form.reset();
+    this.onClear();
   }
 
-  public onDelete() {
-    alert('Delete Button was Clicked!')
+  public onDelete(): void {
+    this.shoppingListService.deleteIngredient(this.ingredientToEditId);
+    this.onClear();
+
   }
 
   public onClear() {
-    alert('Clear Button was Clicked!')
+    this.form.reset();
+    this.editMode = false;
   }
 }
