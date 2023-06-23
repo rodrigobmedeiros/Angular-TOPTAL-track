@@ -1,7 +1,7 @@
 import { NonNullAssert } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
@@ -14,7 +14,11 @@ export class RecipeEditComponent implements OnInit{
   editMode: boolean = false;
   recipeForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private recipeService: RecipeService
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -29,11 +33,20 @@ export class RecipeEditComponent implements OnInit{
   }
 
   onSubmit() {
-    alert(JSON.stringify(this.recipeForm.value));
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
+      this.id = this.recipeService.getRecipes().length - 1;
+    }
+    this.router.navigate(['/recipes', this.id]);
+  }
+
+  onCancel() {
+    if (this.id >= 0) {
+      this.router.navigate(['/recipes', this.id]);
+    } else {
+      this.router.navigate(['/recipes']);
     }
   }
 
