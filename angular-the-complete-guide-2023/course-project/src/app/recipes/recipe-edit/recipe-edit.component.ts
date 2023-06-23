@@ -43,7 +43,7 @@ export class RecipeEditComponent implements OnInit{
   }
 
   onCancel() {
-    if (this.id >= 0) {
+    if (this.editMode) {
       this.router.navigate(['/recipes', this.id]);
     } else {
       this.router.navigate(['/recipes']);
