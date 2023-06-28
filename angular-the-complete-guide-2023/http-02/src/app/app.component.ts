@@ -11,7 +11,9 @@ export class AppComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fechtPosts();
+  }
 
   onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
@@ -25,10 +27,14 @@ export class AppComponent implements OnInit {
 
   onFetchPosts() {
     // Send Http request
+    this.fechtPosts();
+  }
+
+  private fechtPosts() {
     this.http.get(
       'https://curso-angular-6aa6b-default-rtdb.firebaseio.com/posts.json'
-    ).subscribe((data) => {
-      alert(JSON.stringify(data));
+    ).subscribe((fetchedData) => {
+      console.log(fetchedData);
     })
   }
 
