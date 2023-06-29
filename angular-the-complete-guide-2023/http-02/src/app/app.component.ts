@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { Post } from './post.model';
+import { PostService } from './services/post.service';
 
 @Component({
   selector: 'app-root',
@@ -12,20 +13,15 @@ export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private postService: PostService) {}
 
   ngOnInit() {
     this.fechtPosts();
   }
 
-  onCreatePost(postData: { title: string; content: string }) {
+  onCreatePost(postData: Post) {
     // Send Http request
-    this.http.post<{name: string}>(
-      'https://curso-angular-6aa6b-default-rtdb.firebaseio.com/posts.json',
-      postData
-    ).subscribe((responseData) => {
-      console.log(responseData);
-    })
+    this.postService.createPost(postData).subscribe(() => {});
   }
 
   onFetchPosts() {
@@ -35,18 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   private fechtPosts() {
-    this.http.get<{[s: string]: Post}>(
-      'https://curso-angular-6aa6b-default-rtdb.firebaseio.com/posts.json'
-    )
-    .pipe(map((posts) => {
-      let postsArray: Post[] = [];
-      for (const key in posts) {
-        if (posts.hasOwnProperty(key)) {
-          postsArray.push({...posts[key], id: key})
-        }
-      }
-      return postsArray;
-    }))
+    this.postService.getPostsList()
     .subscribe((fetchedData) => {
       this.isFetching = false;
       this.loadedPosts = fetchedData;
