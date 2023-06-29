@@ -9,7 +9,8 @@ import { Post } from './post.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loadedPosts: any[] = [];
+  loadedPosts: Post[] = [];
+  isFetching: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
-    this.http.post<Post>(
+    this.http.post<{name: string}>(
       'https://curso-angular-6aa6b-default-rtdb.firebaseio.com/posts.json',
       postData
     ).subscribe((responseData) => {
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit {
 
   onFetchPosts() {
     // Send Http request
+    this.isFetching = true;
     this.fechtPosts();
   }
 
@@ -46,7 +48,8 @@ export class AppComponent implements OnInit {
       return postsArray;
     }))
     .subscribe((fetchedData) => {
-      console.log(fetchedData);
+      this.isFetching = false;
+      this.loadedPosts = fetchedData;
     })
   }
 
