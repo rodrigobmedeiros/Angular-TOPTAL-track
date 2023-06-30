@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Post } from './post.model';
 import { PostService } from './services/post.service';
 
@@ -9,20 +9,28 @@ import { PostService } from './services/post.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   loadedPosts: Post[] = [];
   isFetching: boolean = false;
   error: string | null = null;
+  subscription: Subscription = new Subscription();
 
   constructor(private http: HttpClient, private postService: PostService) {}
 
   ngOnInit() {
+    this.subscription = this.postService.error.subscribe((errorMessage) => {
+      alert(errorMessage);
+    })
     this.fechtPosts();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onCreatePost(postData: Post) {
     // Send Http request
-    this.postService.createPost(postData).subscribe(() => {});
+    this.postService.createPost(postData);
   }
 
   onFetchPosts() {
