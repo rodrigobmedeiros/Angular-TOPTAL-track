@@ -12,6 +12,7 @@ import { PostService } from './services/post.service';
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching: boolean = false;
+  error: string | null = null;
 
   constructor(private http: HttpClient, private postService: PostService) {}
 
@@ -35,6 +36,8 @@ export class AppComponent implements OnInit {
     .subscribe((fetchedData) => {
       this.isFetching = false;
       this.loadedPosts = fetchedData;
+    }, (error) => {
+      this.error = error.message;
     })
   }
 
