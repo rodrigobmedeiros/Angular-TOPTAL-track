@@ -19,6 +19,10 @@ export class PostService {
     return this.http.post<{name: string}>(this.baseUrl, post);
   }
 
+  public deletePosts(): Observable<Post[]> {
+    return this.http.delete<Post[]>(this.baseUrl);
+  }
+
   public getPostsList(): Observable<Post[]> {
     return this.getPosts().pipe(map((posts) => {
       let postsArray: Post[] = [];
