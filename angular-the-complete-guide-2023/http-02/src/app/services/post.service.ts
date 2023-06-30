@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject, Subscription } from 'rxjs'
+import { catchError, map, Observable, Subject, Subscription, throwError } from 'rxjs'
 import { Post } from '../post.model';
 
 @Injectable({
@@ -30,14 +30,19 @@ export class PostService {
   }
 
   public getPostsList(): Observable<Post[]> {
-    return this.getPosts().pipe(map((posts) => {
-      let postsArray: Post[] = [];
-      for (const key in posts) {
-        if (posts.hasOwnProperty(key)) {
-          postsArray.push({...posts[key], id: key})
+    return this.getPosts().pipe(
+      map((posts) => {
+        let postsArray: Post[] = [];
+        for (const key in posts) {
+          if (posts.hasOwnProperty(key)) {
+            postsArray.push({...posts[key], id: key})
+          }
         }
-      }
-      return postsArray;
-    }))
+        return postsArray;
+      }),
+      catchError((error) => {
+        return throwError(error);
+      })
+    )
   }
 }
