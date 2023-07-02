@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, Subject, Subscription, throwError } from 'rxjs'
 import { Post } from '../post.model';
@@ -14,10 +14,14 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   public getPosts(): Observable<{ [key:string]: Post }> {
+
+    let params = new HttpParams().set('print', 'pretty')
+    params = params.append('value', 'teste')
+
+
     return this.http.get<{ [key:string]: Post }>(this.baseUrl, {
-      headers: new HttpHeaders({
-        'custom-content': 'content'
-      })
+      headers: new HttpHeaders({'custom-content': 'content'}),
+      params: params
     });
   }
 
