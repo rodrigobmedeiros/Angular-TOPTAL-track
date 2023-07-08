@@ -10,26 +10,28 @@ export class RecipeService {
   @Output() selectedRecipe: EventEmitter<Recipe> = new EventEmitter();
   recipesChanged: Subject<Recipe[]> = new Subject();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'pasta bolognesa', 
-      'delicious pasta with bolognesa souce', 
-      'https://realfood.tesco.com/media/images/1400x919-tomato-pasta-6a5a3c8e-f111-490d-805c-9b62fbec8691-0-1400x919.jpg',
-      [
-        new Ingredient('pasta', 1),
-        new Ingredient('tomato souce', 1)
-      ]
-    ),
-    new Recipe(
-      'white rice', 
-      'delicious white rice with garlic', 
-      'https://static.itdg.com.br/images/1200-675/21fd76be3b29c3290859eda5220e0e32/323683-original.jpg',
-      [
-        new Ingredient('rice', 1),
-        new Ingredient('garlic', 2)
-      ]
-    )
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'pasta bolognesa', 
+  //     'delicious pasta with bolognesa souce', 
+  //     'https://realfood.tesco.com/media/images/1400x919-tomato-pasta-6a5a3c8e-f111-490d-805c-9b62fbec8691-0-1400x919.jpg',
+  //     [
+  //       new Ingredient('pasta', 1),
+  //       new Ingredient('tomato souce', 1)
+  //     ]
+  //   ),
+  //   new Recipe(
+  //     'white rice', 
+  //     'delicious white rice with garlic', 
+  //     'https://static.itdg.com.br/images/1200-675/21fd76be3b29c3290859eda5220e0e32/323683-original.jpg',
+  //     [
+  //       new Ingredient('rice', 1),
+  //       new Ingredient('garlic', 2)
+  //     ]
+  //   )
+  // ];
+
+  private recipes: Recipe[] = [];
 
   public setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
