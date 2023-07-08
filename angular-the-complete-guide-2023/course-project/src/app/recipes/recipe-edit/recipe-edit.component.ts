@@ -2,6 +2,7 @@ import { NonNullAssert } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class RecipeEditComponent implements OnInit{
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private dataStorage: DataStorageService
   ) {}
 
   ngOnInit() {
@@ -39,6 +41,7 @@ export class RecipeEditComponent implements OnInit{
       this.recipeService.addRecipe(this.recipeForm.value);
       this.id = this.recipeService.getRecipes().length - 1;
     }
+    this.dataStorage.saveRecipes();
     this.navigateOneLevelUp();
   }
 
