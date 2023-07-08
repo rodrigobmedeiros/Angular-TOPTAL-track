@@ -7,14 +7,15 @@ import { NoRecipeSelectedComponent } from './recipes/recipe-list/no-recipe-selec
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { RecipeResolverResolver } from './recipes/recipe-resolver.resolver';
 
 const routes: Route[] = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
   { path: 'recipes', component: RecipesComponent, children: [
     { path: '', component: NoRecipeSelectedComponent },
-    { path: 'new', component: RecipeEditComponent },
-    { path: ':id', component: RecipeDetailComponent },
-    { path: ':id/edit', component: RecipeEditComponent }
+    { path: 'new', component: RecipeEditComponent, resolve: [RecipeResolverResolver] },
+    { path: ':id', component: RecipeDetailComponent, resolve: [RecipeResolverResolver] },
+    { path: ':id/edit', component: RecipeEditComponent, resolve: [RecipeResolverResolver] }
   ]},
   { path: 'shopping-list', component: ShoppingListComponent}
 ]
