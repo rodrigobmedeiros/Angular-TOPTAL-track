@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-auth-user',
@@ -10,5 +11,10 @@ export class AuthUserComponent {
 
   onSwitchOption(): void {
     this.isLogin = !this.isLogin;
+  }
+
+  onSubmit(authForm: NgForm) {
+    console.log(authForm.value);
+    authForm.reset();
   }
 }
