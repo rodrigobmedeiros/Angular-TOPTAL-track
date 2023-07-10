@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth-user.component.css']
 })
 export class AuthUserComponent {
+  isLogin = false;
 
+  onSwitchOption(): void {
+    this.isLogin = !this.isLogin;
+  }
 }
