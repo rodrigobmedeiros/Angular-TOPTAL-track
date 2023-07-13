@@ -8,7 +8,9 @@ import { AuthUserService } from './auth-user.service';
   styleUrls: ['./auth-user.component.css']
 })
 export class AuthUserComponent {
-  isLogin = false;
+  isLogin: boolean = false;
+  isLoading: boolean = false;
+  error: string = null;
 
   constructor(private authUserService: AuthUserService) {}
 
@@ -19,14 +21,16 @@ export class AuthUserComponent {
   onSubmit(authForm: NgForm) {
     const email: string = authForm.form.value.email
     const password: string = authForm.form.value.password
-
+    this.isLoading = true;
     if (this.isLogin) {
       console.log('Login process...');
+      this.isLoading = false;
     } else {
       this.authUserService.signup(email, password).subscribe(responseData => {
-        console.log(responseData);
+        this.isLoading = false;
       }, error => {
-        console.log(error);
+        this.error = 'An error occurred!';
+        this.isLoading = false;
       })
     }
     authForm.reset();

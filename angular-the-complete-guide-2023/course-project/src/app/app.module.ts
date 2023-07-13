@@ -16,6 +16,7 @@ import { NoRecipeSelectedComponent } from './recipes/recipe-list/no-recipe-selec
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthUserComponent } from './auth/auth-user/auth-user.component'
+import { SpinningComponent } from './shared/spinning/spinning-component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthUserComponent } from './auth/auth-user/auth-user.component'
     DropdownDirective,
     NoRecipeSelectedComponent,
     RecipeEditComponent,
-    AuthUserComponent
+    AuthUserComponent,
+    SpinningComponent
   ],
   imports: [
     BrowserModule,
