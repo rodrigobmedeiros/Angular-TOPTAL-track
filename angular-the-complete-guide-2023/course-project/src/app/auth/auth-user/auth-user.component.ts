@@ -29,7 +29,7 @@ export class AuthUserComponent {
       this.authUserService.signup(email, password).subscribe(responseData => {
         this.isLoading = false;
       }, error => {
-        this.error = 'An error occurred!';
+        this.error = error;
         this.isLoading = false;
       })
     }
