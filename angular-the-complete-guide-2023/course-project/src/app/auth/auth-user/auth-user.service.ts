@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-interface SignUpResponce {
+export interface AuthDataResponce {
   idToken: string;
   email: string;
   refreshToken: string;
   expiresIn: string;
   localId: string;
+  registered?: string
 }
 
 @Injectable({
@@ -17,13 +18,14 @@ interface SignUpResponce {
 export class AuthUserService {
 
   private firebaseKey: string = "AIzaSyA7xDiJ8i3L-tTRqdsyoROwoetJjqm7GKY"
-  private signupRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.firebaseKey}`
+  private signupRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.firebaseKey}`;
+  private signInRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.firebaseKey}`;
   
 
   constructor(private http: HttpClient) { }
 
-  signup(email: string, password: string): Observable<SignUpResponce> {
-    return this.http.post<SignUpResponce>(this.signupRoute, {
+  signup(email: string, password: string): Observable<AuthDataResponce> {
+    return this.http.post<AuthDataResponce>(this.signupRoute, {
       email: email,
       password: password,
       returnSecureToken: true
@@ -38,5 +40,13 @@ export class AuthUserService {
       }
       return throwError(errorMessage);
     }))
+  }
+
+  signin(email: string, password: string): Observable<AuthDataResponce> {
+    return this.http.post<AuthDataResponce>(this.signInRoute, {
+      email: email,
+      password: password,
+      returnSecureToken: true
+    })
   }
 }
