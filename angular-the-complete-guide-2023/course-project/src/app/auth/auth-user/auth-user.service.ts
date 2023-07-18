@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -29,17 +29,7 @@ export class AuthUserService {
       email: email,
       password: password,
       returnSecureToken: true
-    }).pipe(catchError((errorResponse) => {
-      let errorMessage = "An unknown error occurred!";
-      if (!errorResponse.error || !errorResponse.error.error.message) {
-        return throwError(errorMessage);
-      }
-      switch (errorResponse.error.error.message) {
-        case 'EMAIL_EXISTS':
-          errorMessage = "This email has already been used!";
-      }
-      return throwError(errorMessage);
-    }))
+    }).pipe(catchError(this.errorHandling))
   }
 
   signin(email: string, password: string): Observable<AuthDataResponce> {
@@ -47,6 +37,25 @@ export class AuthUserService {
       email: email,
       password: password,
       returnSecureToken: true
-    })
+    }).pipe(catchError(this.errorHandling))
+  }
+
+  private errorHandling(errorResponse: HttpErrorResponse) {
+    let errorMessage = "An unknown error occurred!";
+      if (!errorResponse.error || !errorResponse.error.error.message) {
+        return throwError(errorMessage);
+      }
+      switch (errorResponse.error.error.message) {
+        case 'EMAIL_NOT_FOUND':
+          errorMessage = "This email is not registered, please SIGN UP first.";
+          break;
+        case 'EMAIL_EXISTS':
+          errorMessage = "This email has already been used!";
+          break;
+        case 'INVALID_PASSWORD':
+          errorMessage = "This password is not valid!";
+          break;
+      }
+      return throwError(errorMessage);
   }
 }
