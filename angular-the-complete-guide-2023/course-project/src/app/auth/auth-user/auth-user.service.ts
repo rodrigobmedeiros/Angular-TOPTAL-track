@@ -1,9 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { User } from './user.model';
 
-export interface AuthDataResponce {
+export interface AuthDataResponse {
   idToken: string;
   email: string;
   refreshToken: string;
@@ -16,7 +17,7 @@ export interface AuthDataResponce {
   providedIn: 'root'
 })
 export class AuthUserService {
-
+  user = new Subject<User>();
   private firebaseKey: string = "AIzaSyA7xDiJ8i3L-tTRqdsyoROwoetJjqm7GKY"
   private signupRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.firebaseKey}`;
   private signInRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.firebaseKey}`;
@@ -24,20 +25,37 @@ export class AuthUserService {
 
   constructor(private http: HttpClient) { }
 
-  signup(email: string, password: string): Observable<AuthDataResponce> {
-    return this.http.post<AuthDataResponce>(this.signupRoute, {
+  signup(email: string, password: string): Observable<AuthDataResponse> {
+    return this.http.post<AuthDataResponse>(this.signupRoute, {
       email: email,
       password: password,
       returnSecureToken: true
-    }).pipe(catchError(this.errorHandling))
+    })
+    .pipe(
+      catchError(this.errorHandling), 
+      tap((resData: AuthDataResponse) => {
+        this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
+      })
+    )
   }
 
-  signin(email: string, password: string): Observable<AuthDataResponce> {
-    return this.http.post<AuthDataResponce>(this.signInRoute, {
+  private handleAuthentication(email: string, id: string, token: string, expiresIn: number) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(email, id, token, expirationDate);
+    this.user.next(user);
+  }
+
+  signin(email: string, password: string): Observable<AuthDataResponse> {
+    return this.http.post<AuthDataResponse>(this.signInRoute, {
       email: email,
       password: password,
       returnSecureToken: true
-    }).pipe(catchError(this.errorHandling))
+    }).pipe(
+      catchError(this.errorHandling),
+      tap((resData: AuthDataResponse) => {
+        this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
+      })
+    )
   }
 
   private errorHandling(errorResponse: HttpErrorResponse) {
