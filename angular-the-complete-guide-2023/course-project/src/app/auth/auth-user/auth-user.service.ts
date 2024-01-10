@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
 
@@ -17,7 +17,7 @@ export interface AuthDataResponse {
   providedIn: 'root'
 })
 export class AuthUserService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
   private firebaseKey: string = "AIzaSyA7xDiJ8i3L-tTRqdsyoROwoetJjqm7GKY"
   private signupRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.firebaseKey}`;
   private signInRoute: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.firebaseKey}`;
@@ -60,20 +60,20 @@ export class AuthUserService {
 
   private errorHandling(errorResponse: HttpErrorResponse) {
     let errorMessage = "An unknown error occurred!";
-      if (!errorResponse.error || !errorResponse.error.error.message) {
-        return throwError(errorMessage);
-      }
-      switch (errorResponse.error.error.message) {
-        case 'EMAIL_NOT_FOUND':
-          errorMessage = "This email is not registered, please SIGN UP first.";
-          break;
-        case 'EMAIL_EXISTS':
-          errorMessage = "This email has already been used!";
-          break;
-        case 'INVALID_PASSWORD':
-          errorMessage = "This password is not valid!";
-          break;
-      }
+    if (!errorResponse.error || !errorResponse.error.error.message) {
       return throwError(errorMessage);
+    }
+    switch (errorResponse.error.error.message) {
+      case 'EMAIL_NOT_FOUND':
+        errorMessage = "This email is not registered, please SIGN UP first.";
+        break;
+      case 'EMAIL_EXISTS':
+        errorMessage = "This email has already been used!";
+        break;
+      case 'INVALID_PASSWORD':
+        errorMessage = "This password is not valid!";
+        break;
+    }
+    return throwError(errorMessage);
   }
 }

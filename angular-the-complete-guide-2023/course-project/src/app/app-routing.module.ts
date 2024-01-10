@@ -11,7 +11,7 @@ import { RecipeResolverResolver } from './recipes/recipe-resolver.resolver';
 import { AuthUserComponent } from './auth/auth-user/auth-user.component';
 
 const routes: Route[] = [
-  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: 'recipes', component: RecipesComponent, resolve: [RecipeResolverResolver], children: [
     { path: '', component: NoRecipeSelectedComponent },
     { path: 'new', component: RecipeEditComponent},

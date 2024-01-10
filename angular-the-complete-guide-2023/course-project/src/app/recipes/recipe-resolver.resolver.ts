@@ -19,6 +19,8 @@ export class RecipeResolverResolver implements Resolve<Recipe[]> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
     const recipes: Recipe[] = this.recipeService.getRecipes()
-      return this.dataStorage.fetchRecipes();
+    // Provavalmente vou voltar com isso aqui quando resolver o problema de incluir o token na requisicao.
+    // return this.dataStorage.fetchRecipes();
+    return recipes;
   }
 }
